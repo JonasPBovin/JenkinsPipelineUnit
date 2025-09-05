@@ -8,7 +8,7 @@ import static com.lesfurets.jenkins.unit.MethodSignature.method
 abstract class DeclarativePipelineTest extends BasePipelineTest {
 
     def pipelineInterceptor = { Closure closure ->
-        GenericPipelineDeclaration.binding = binding
+        GenericPipelineDeclaration.setBinding(super.binding)
         GenericPipelineDeclaration.createComponent(DeclarativePipeline, closure).execute(delegate)
     }
 
@@ -18,7 +18,7 @@ abstract class DeclarativePipelineTest extends BasePipelineTest {
         helper.registerAllowedMethod('booleanParam', [Map], paramInterceptor)
         helper.registerAllowedMethod('checkout', [Closure])
         helper.registerAllowedMethod('credentials', [String], { String credName ->
-            return binding.getVariable('credentials')[credName]
+            return super.binding.getVariable('credentials')[credName]
         })
         helper.registerAllowedMethod('cron', [String])
         helper.registerAllowedMethod('input', [Closure])
@@ -30,7 +30,7 @@ abstract class DeclarativePipelineTest extends BasePipelineTest {
         helper.registerAllowedMethod('string', [Map], stringInterceptor)
         helper.registerAllowedMethod('timeout', [Integer, Closure])
         helper.registerAllowedMethod('timestamps')
-        binding.setVariable('credentials', [:])
-        binding.setVariable('params', [:].asImmutable())
+        super.binding.setVariable('credentials', [:])
+        super.binding.setVariable('params', [:].asImmutable())
     }
 }

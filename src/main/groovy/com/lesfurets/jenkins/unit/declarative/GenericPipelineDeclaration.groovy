@@ -12,13 +12,13 @@ abstract class GenericPipelineDeclaration {
     static def binding = null
 
     static <T> T createComponent(Class<T> componentType, @DelegatesTo(strategy = DELEGATE_FIRST) Closure<T> closure) {
-        // declare componentInstance as final to prevent any multithreaded issues, since it is used inside closure
         final def componentInstance = componentType.newInstance()
-        def rehydrate = closure.rehydrate(componentInstance, closure, componentInstance)
+        def rehydrated = closure.rehydrate(componentInstance, closure.owner, closure.thisObject)
+        rehydrated.resolveStrategy = DELEGATE_FIRST
         if (binding && componentInstance.hasProperty('binding') && componentInstance.binding != binding) {
             componentInstance.binding = binding
         }
-        rehydrate.call()
+        rehydrated.call()
         return componentInstance
     }
 

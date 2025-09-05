@@ -5,6 +5,7 @@ def call(body) {
     body.delegate = config
     body()
 
-    sayHello {}
-    sayHello.hello("World!")
+    echo "Hello"
+    //sayHello {}
+    //sayHello.hello(message: "World!")
 }

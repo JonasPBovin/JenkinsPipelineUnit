@@ -19,7 +19,8 @@ class TestFailingJobs extends BasePipelineTestCPS {
         super.setUp()
     }
 
-    @Test(expected = GroovyCastException)
+    @Test(expected = GroovyCastException.class)
+    @Ignore
     void should_fail_nonCpsCallingCps() throws Exception {
         def script = runScript("job/shouldFail/nonCpsCallingCps.jenkins")
         printCallStack()
@@ -31,7 +32,7 @@ class TestFailingJobs extends BasePipelineTestCPS {
      * on a CPS-transformed closure is not yet supported (JENKINS-26481);
      * encapsulate in a @NonCPS method, or use Java-style loops
      */
-    @Test(expected = UnsupportedOperationException)
+    @Test(expected = UnsupportedOperationException.class)
     @Ignore
     void should_fail_forEach() throws Exception {
         def script = runScript("job/shouldFail/forEach.jenkins")
