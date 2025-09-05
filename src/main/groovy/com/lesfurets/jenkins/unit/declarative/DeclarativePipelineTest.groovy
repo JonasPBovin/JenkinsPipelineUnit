@@ -8,7 +8,7 @@ import static com.lesfurets.jenkins.unit.MethodSignature.method
 abstract class DeclarativePipelineTest extends BasePipelineTest {
 
     def pipelineInterceptor = { Closure closure ->
-        GenericPipelineDeclaration.setBinding(super.binding)
+        GenericPipelineDeclaration.binding = super.binding
         GenericPipelineDeclaration.createComponent(DeclarativePipeline, closure).execute(delegate)
     }
 
