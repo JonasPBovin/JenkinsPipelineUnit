@@ -725,7 +725,7 @@ class TestDeclarativePipeline extends DeclarativePipelineTest {
         assertJobStatusFailure()
     }
 
-    @Test(expected = MissingPropertyException)
+    @Test(expected = MissingPropertyException.class)
     void should_non_valid_fail() throws Exception {
         try {
             runScript('Non_Valid_Jenkinsfile')
@@ -802,7 +802,7 @@ class TestDeclarativePipeline extends DeclarativePipelineTest {
     @Test void should_scope_this_in_closure() throws Exception {
         runScript('ThisScope_Jenkinsfile')
         printCallStack()
-        assertCallStack().contains('writeFile({file=messages/messages.msg, text=text})')
+        assertCallStack().contains('writeFile([file:messages/messages.msg, text:text])')
     }
 
     @Test void test_agent_in_stage_with_no_steps() {
@@ -825,9 +825,8 @@ class TestDeclarativePipeline extends DeclarativePipelineTest {
 
     }
 
-    @Test(expected = IllegalArgumentException)
+    @Test(expected = IllegalArgumentException.class)
     void test_stage_and_steps() {
         runScript("StageAndSteps_Jenkinsfile")
     }
 }
-

@@ -488,6 +488,10 @@ class PipelineTestHelper {
      * @param args method arguments
      */
     protected void registerMethodCall(Object target, int stackDepth, String name, Object... args) {
+        if (name.equalsIgnoreCase('getBinding')) {
+            // ignore getBinding calls
+            return
+        }
         MethodCall call = new MethodCall()
         call.target = target
         call.methodName = name

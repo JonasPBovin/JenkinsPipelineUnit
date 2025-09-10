@@ -14,19 +14,20 @@ repositories {
     maven { url 'https://repo.jenkins-ci.org/public/' }
 }
 
-group = "com.lesfurets"
+group = "com.se.jenkins.pipeline"
 archivesBaseName = "jenkins-pipeline-unit"
 
 sourceCompatibility = 17
 targetCompatibility = 17
 
 dependencies {
-    implementation('org.codehaus.groovy:groovy-all:2.4.21')
-    implementation('com.cloudbees:groovy-cps:4177.vb_203fe395445')
-    testImplementation('io.jenkins.plugins:pipeline-groovy-lib:752.vdddedf804e72')
+    implementation('org.apache.groovy:groovy:4.0.28')
+    implementation('org.apache.groovy:groovy-json:4.0.28')
+    implementation('com.cloudbees:groovy-cps:4177.vb_203fe395445') // updated for Java 25 support
+    testImplementation('io.jenkins.plugins:pipeline-groovy-lib:752.vdddedf804e72') // updated for Java 25 support
     implementation('commons-io:commons-io:2.20.0')
     implementation('org.apache.ivy:ivy:2.5.3')
-    api('org.assertj:assertj-core:3.27.4')
+    implementation('org.assertj:assertj-core:3.27.4')
     implementation('org.apache.commons:commons-lang3:3.18.0')
 
     testImplementation('junit:junit:4.13.2')

@@ -1,7 +1,6 @@
 package net.courtanet.jenkins
 
-@Grab('org.apache.commons:commons-math3:3.6.1')
-import org.apache.commons.math3.primes.Primes
+import groovy.grape.Grape
 
 class Utils implements Serializable {
 
@@ -15,8 +14,13 @@ class Utils implements Serializable {
 		this.script = script
 	}
 
+	void ensureMath3() {
+		Grape.grab(group:'org.apache.commons', module:'commons-math3', version:'3.6.1', classLoader: this.class.classLoader)
+	}
+
 	void parallelize(int count) {
-		if (!Primes.isPrime(count)) {
+		ensureMath3()
+		if (!org.apache.commons.math3.primes.Primes.isPrime(count)) {
 			echo "${count} was not prime"
 		}
 		// …

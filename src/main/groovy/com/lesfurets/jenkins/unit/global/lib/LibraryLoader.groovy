@@ -99,7 +99,7 @@ class LibraryLoader {
             def urls = library.retriever.retrieve(library.name, version ?: library.defaultVersion, library.targetPath)
             def record = new LibraryRecord(library, version ?: library.defaultVersion, urls.path)
             libRecords.put(record.getIdentifier(), record)
-            def globalVars = [:]
+            Map<String, Object> globalVars = [:]
             urls.forEach { URL url ->
                 def file = new File(url.toURI())
 

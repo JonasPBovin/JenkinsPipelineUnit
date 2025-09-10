@@ -11,7 +11,7 @@ def execute() {
         },
         action2: {
             node() {
-                sayHello()
+                sayHelloAgain()
                 sh 'sleep 4'
                 error 'message'
             }

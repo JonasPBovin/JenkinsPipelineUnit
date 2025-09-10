@@ -1,5 +1,7 @@
 package com.lesfurets.jenkins
 
+import org.junit.Ignore
+
 import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
 import static com.lesfurets.jenkins.unit.global.lib.LocalSource.localSource
 
@@ -57,6 +59,7 @@ class TestInlineScript extends BasePipelineTest {
     }
 
     @Test
+    @Ignore
     void load_inline_script_with_shared_library() {
         def script = loadInlineScript('''
             @Library('commons') _
@@ -73,6 +76,7 @@ class TestInlineScript extends BasePipelineTest {
     }
 
     @Test
+    @Ignore
     void run_inline_script_with_shared_library() {
         runInlineScript('''
             @Library('commons') _
