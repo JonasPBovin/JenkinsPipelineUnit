@@ -57,7 +57,7 @@ git checkout -B master origin/master
 * Create release:
 
 ```
-./gradlew release
+mvn clean deploy
 # You will be asked for the new version, and new snapshot version
 # (just press enter to use default values)
 
@@ -82,5 +82,5 @@ git checkout v1.7
 
 
 [jenkins-adopt-a-plugin]: https://www.jenkins.io/doc/developer/plugin-governance/adopt-a-plugin/
-[jenkins-plugin-repo]: https://repo.jenkins-ci.org/artifactory/releases/com/lesfurets/jenkins-pipeline-unit/
+[jenkins-plugin-repo]: http://localhost:18081/nexus/repository/releases/com/se/jenkins/pipeline/jenkins-pipeline-unit/
 [release-drafter]: https://github.com/jenkinsci/.github/blob/master/.github/release-drafter.adoc

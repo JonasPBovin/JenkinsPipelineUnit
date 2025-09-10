@@ -71,7 +71,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation "com.lesfurets:jenkins-pipeline-unit:1.9"
+    testImplementation "com.se.jenkins.pipeline:jenkins-pipeline-unit:2.0"
     ...
 }
 ```
