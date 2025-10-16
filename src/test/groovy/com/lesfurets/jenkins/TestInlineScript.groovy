@@ -59,13 +59,12 @@ class TestInlineScript extends BasePipelineTest {
     }
 
     @Test
-    @Ignore
     void load_inline_script_with_shared_library() {
         def script = loadInlineScript('''
             @Library('commons') _
 
             node {
-                sayHello()
+                sayHelloAgain()
             }
         ''')
 
@@ -76,13 +75,12 @@ class TestInlineScript extends BasePipelineTest {
     }
 
     @Test
-    @Ignore
     void run_inline_script_with_shared_library() {
         runInlineScript('''
             @Library('commons') _
 
             node {
-                sayHello()
+                sayHelloAgain()
             }
         ''')
 

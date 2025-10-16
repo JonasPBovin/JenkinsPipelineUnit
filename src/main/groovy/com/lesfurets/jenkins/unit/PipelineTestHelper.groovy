@@ -14,6 +14,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.codehaus.groovy.runtime.MetaClassHelper
+import groovy.lang.MetaClassRegistry
 
 import com.lesfurets.jenkins.unit.global.lib.LibraryAnnotationTransformer
 import com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration
@@ -437,6 +438,7 @@ class PipelineTestHelper {
 
         configuration.setDefaultScriptExtension(scriptExtension)
         configuration.setScriptBaseClass(scriptBaseClass.getName())
+        configuration.getOptimizationOptions().put(org.codehaus.groovy.control.CompilerConfiguration.INVOKEDYNAMIC, false)
 
         gse = new GroovyScriptEngine(scriptRoots, cLoader)
         gse.setConfig(configuration)
@@ -514,7 +516,8 @@ class PipelineTestHelper {
     protected Map.Entry<MethodSignature, Closure> getAllowedMethodEntry(String name, Object... args) {
         Class[] paramTypes = MetaClassHelper.castArgumentsToClassArray(args)
         MethodSignature signature = method(name, paramTypes)
-        return allowedMethodCallbacks.find { k, v -> k == signature }
+        Map.Entry<MethodSignature, Closure> ret = allowedMethodCallbacks.find { k, v -> k == signature }
+        return ret
     }
 
     /**
@@ -570,12 +573,32 @@ class PipelineTestHelper {
     Script loadInlineScript(String scriptText, Binding binding) {
         Objects.requireNonNull(binding, "Binding cannot be null.")
         Objects.requireNonNull(gse, "GroovyScriptEngine is not initialized: Initialize the helper by calling init().")
-        GroovyShell shell = new GroovyShell(gse.getParentClassLoader(), binding, gse.getConfig())
-        Script script = shell.parse(scriptText)
-        // make sure to set global vars after parsing the script as it will trigger library loads, otherwise library methods will be unregistered
-        setGlobalVars(binding)
-        InterceptingGCL.interceptClassMethods(script.metaClass, this, binding)
-        return script
+
+        // Ensure we have a mutable list of roots
+        if (scriptRoots == null) {
+            scriptRoots = new String[0]
+        }
+
+        // Inline script root under target (ephemeral, not committed)
+        String inlineRootRel = "target/pipeline-inline"
+        File inlineRootDir = Paths.get(baseScriptRoot, inlineRootRel).toFile()
+        inlineRootDir.mkdirs()
+
+        // Dynamically add inline root to scriptRoots if missing
+        if (!scriptRoots.contains(inlineRootRel)) {
+            scriptRoots = (scriptRoots + inlineRootRel) as String[]
+            // Reconfigure GroovyScriptEngine with the updated roots
+            gse = new GroovyScriptEngine(scriptRoots, gse.groovyClassLoader)
+            gse.setConfig(gse.config)
+        }
+
+        // Unique file name
+        String fileName = "__inline__${System.nanoTime()}.${scriptExtension}"
+        File inlineFile = new File(inlineRootDir, fileName)
+        inlineFile.text = scriptText
+
+        // Load relative to the newly added root
+        return loadScript(fileName, binding)
     }
 
     /**

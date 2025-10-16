@@ -19,7 +19,7 @@ class PipelineTestHelperCPS extends PipelineTestHelper {
         gse.getConfig().setScriptBaseClass(scriptBaseClass.getName())
         // Add transformer for CPS compilation
         def transformer = new CpsTransformer()
-        transformer.setConfiguration(new TransformerConfiguration().withClosureType(MockClosure.class))
+        transformer.setConfiguration(new TransformerConfiguration().withClosureType(MockClosure))
         gse.getConfig().addCompilationCustomizers(transformer)
         return this
     }

@@ -1,4 +1,4 @@
-// vars/sayHello.groovy
+// vars/sayHelloAgain.groovy
 def call(String name = 'name', String otherName = null) {
     // Any valid steps can be called from this code, just like in other
     // Scripted Pipeline

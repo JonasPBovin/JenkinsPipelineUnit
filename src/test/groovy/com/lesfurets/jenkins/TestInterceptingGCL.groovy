@@ -153,7 +153,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of missing methods of pipeline works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_cross_class_interop_library_loaded_with_implicit() throws Exception {
         def library = library().name('test_cross_class_uno')
                         .defaultVersion("alpha")
@@ -181,7 +181,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of pipeline methods works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_cross_class_interop_no_implicit_dynamic() throws Exception {
         def library = library().name('test_cross_class_dos')
                         .defaultVersion("beta")
@@ -208,7 +208,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of pipeline methods works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_cross_class_interop_no_implicit_annotation() throws Exception {
         def library = library().name('test_cross_class_tres')
                         .defaultVersion("gamma")
@@ -235,7 +235,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of missing methods of pipeline works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_pre_loaded_cross_class_interop_library_loaded_with_implicit() throws Exception {
         def library = library().name('test_pre_loaded_cross_class_uno')
                         .defaultVersion("alpha")
@@ -263,7 +263,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of pipeline methods works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_pre_loaded_cross_class_interop_no_implicit_dynamic() throws Exception {
         def library = library().name('test_pre_loaded_cross_class_dos')
                         .defaultVersion("beta")
@@ -290,7 +290,7 @@ class TestInterceptingGCL extends BasePipelineTest {
     * 5. Make sure interception of pipeline methods works properly
     */
     @Test
-    @Ignore("Fails in Gradle but works in maven, need to investigate")
+    @Ignore("Cross class interoperability with @Library annotation is not supported")
     void test_pre_loaded_cross_class_interop_no_implicit_annotation() throws Exception {
         def library = library().name('test_pre_loaded_cross_class_tres')
                         .defaultVersion("gamma")

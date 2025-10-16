@@ -115,7 +115,7 @@ class LibraryLoader {
                     ds.map { it.toFile() }
                       .filter ({File it -> it.name.endsWith('.groovy') } as Predicate<File>)
                       .map { FilenameUtils.getBaseName(it.name) }
-                      .filter ({String it -> !globalVars.containsValue(it) } as Predicate<String>)
+                      .filter ({String it -> !globalVars.containsKey(it) } as Predicate<String>)
                       .forEach ({ String it ->
                           def clazz = groovyClassLoader.loadClass(it)
                           // instantiate by invokeConstructor to avoid interception
